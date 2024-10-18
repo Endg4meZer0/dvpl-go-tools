@@ -1,0 +1,5 @@
+dvpl-go-tools*
+*.yaml
+*.dvpl
+*.dvpl.extra
+test
