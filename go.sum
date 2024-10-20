@@ -1,6 +1,4 @@
-github.com/Endg4meZer0/dvpl-go v0.0.0-20241008133335-354538fe074d h1:OKzBLnZGlojSeM1q4x0G5HN34vkoj+T6s4m1ygpzKaM=
-github.com/Endg4meZer0/dvpl-go v0.0.0-20241008133335-354538fe074d/go.mod h1:wjmA34ROUlnspstM6apzzT6HhGNxEkfv6gmMix/9BEM=
-github.com/Endg4meZer0/dvpl-go v1.0.0 h1:GXC+9+HsDtd82h3Hgcw8eCBm/9K4/87AjLlmghVUiUI=
-github.com/Endg4meZer0/dvpl-go v1.0.0/go.mod h1:wjmA34ROUlnspstM6apzzT6HhGNxEkfv6gmMix/9BEM=
+github.com/Endg4meZer0/dvpl-go v1.1.0 h1:VP2US6Pksv59S4sy7U2Rc9KrWfsbbXn3vJv/uF0148I=
+github.com/Endg4meZer0/dvpl-go v1.1.0/go.mod h1:wjmA34ROUlnspstM6apzzT6HhGNxEkfv6gmMix/9BEM=
 github.com/pierrec/lz4/v4 v4.1.21 h1:yOVMLb6qSIDP67pl/5F7RepeKYu/VmTyEXvuMI5d9mQ=
 github.com/pierrec/lz4/v4 v4.1.21/go.mod h1:gZWDp/Ze/IJXGXf23ltt2EXimqmTUXEy0GFuRQyBid4=

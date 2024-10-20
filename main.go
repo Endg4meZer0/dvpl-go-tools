@@ -127,9 +127,9 @@ func convertPaths(paths []string) {
 	}
 }
 
-const usageText = "Usage: dvpl-go-tools <-c|-d> [-f] [-n] [-r] PATH [PATH...]\n\nOptions:\n"
+const helpText = "DVPL Converter by Endg4me_\n\nUsage: dvpl-go-tools <-c|-d> [-f] [-n] [-r] PATH [PATH...]\n\nOptions:\n"
 
 func printUsage() {
-	fmt.Fprint(os.Stderr, usageText)
+	fmt.Print(helpText)
 	flag.PrintDefaults()
 }
