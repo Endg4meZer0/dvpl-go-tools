@@ -1,0 +1,86 @@
+name: Publish a new release after a commit
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+    
+permissions:
+  contents: write   # This is required to create/push the new git tag
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.22'
+
+    - name: Build Linux binary
+      run: go build -o dvpl-go-tools -v
+
+    - name: Build Windows binary
+      run: GOOS=windows go build -o dvpl-go-tools.exe -v
+
+    - name: Build MacOS binary
+      run: GOOS=darwin go build -o dvpl-go-tools-macos -v
+      
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get commit message
+      id: commit
+      run: echo "::set-output name=message::$(git log --format=%B -n 1 ${{ github.event.after }})"
+  
+    - name: Get commit hash
+      id: hash
+      run: echo "::set-output name=sha::$(git rev-parse --short HEAD)"
+  
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ steps.hash.outputs.sha }}
+        release_name: ${{ steps.commit.outputs.message }}
+        draft: false
+        prerelease: false
+
+    - name: Upload Release Linux Binary
+      id: upload-release-linux-binary
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./dvpl-go-tools
+        asset_name: dvpl-go-tools-linux
+        asset_content_type: application/octet-stream
+
+    - name: Upload Release Windows Binary
+      id: upload-release-windows-binary
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./dvpl-go-tools.exe
+        asset_name: dvpl-go-tools-windows.exe
+        asset_content_type: application/octet-stream
+
+    - name: Upload Release MacOS Binary
+      id: upload-release-macos-binary
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./dvpl-go-tools-macos
+        asset_name: dvpl-go-tools-macos
+        asset_content_type: application/octet-stream
+
