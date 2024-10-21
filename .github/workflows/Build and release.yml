@@ -10,7 +10,7 @@ permissions:
   contents: write   # This is required to create/push the new git tag
   
 jobs:
-  build:
+  build-and-release:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -28,10 +28,7 @@ jobs:
 
     - name: Build MacOS binary
       run: GOOS=darwin go build -o dvpl-go-tools-macos -v
-      
-  release:
-    runs-on: ubuntu-latest
-    steps:
+    
     - name: Get commit message
       id: commit
       run: echo "::set-output name=message::$(git log --format=%B -n 1 ${{ github.event.after }})"
@@ -83,4 +80,3 @@ jobs:
         asset_path: ./dvpl-go-tools-macos
         asset_name: dvpl-go-tools-macos
         asset_content_type: application/octet-stream
-
