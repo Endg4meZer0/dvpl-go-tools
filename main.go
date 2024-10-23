@@ -55,7 +55,7 @@ func main() {
 		if !strings.HasPrefix(v, "-") {
 			path, err := filepath.Abs(v)
 			if err != nil {
-				fmt.Fprintf(os.Stderr, errorStr+"An unknown error occured when trying to read the set path (%s). Skipping...", v)
+				fmt.Fprintf(os.Stderr, errorStr+"An unknown error occurred when trying to read the set path (%s). Skipping...", v)
 				continue
 			}
 			paths = append(paths, path)
@@ -79,7 +79,7 @@ func convertPaths(paths []string) {
 		fileInfo, err := os.Stat(path)
 
 		if err != nil {
-			fmt.Fprintf(os.Stderr, errorStr+"An unknown error occured when trying to read %s. Does it exist, or maybe there's an issue with permissions?", path)
+			fmt.Fprintf(os.Stderr, errorStr+"An unknown error occurred when trying to read %s. Does it exist, or maybe there's an issue with permissions?", path)
 			total++
 			failed++
 			continue
@@ -94,7 +94,7 @@ func convertPaths(paths []string) {
 			if err != nil {
 				total++
 				failed++
-				fmt.Fprintf(os.Stderr, errorStr+"An unknown error occured when trying to read %s as a directory. Does it exist, or maybe there's an issue with permissions?", path)
+				fmt.Fprintf(os.Stderr, errorStr+"An unknown error occurred when trying to read %s as a directory. Does it exist, or maybe there's an issue with permissions?", path)
 				continue
 			}
 			dirPaths := make([]string, 0, len(dir))
@@ -106,7 +106,7 @@ func convertPaths(paths []string) {
 			total++
 			file, err := os.ReadFile(path)
 			if err != nil {
-				fmt.Fprintf(os.Stderr, errorStr+"An unknown error occured when trying to read %s. Does it exist, or maybe there's an issue with permissions?", path)
+				fmt.Fprintf(os.Stderr, errorStr+"An unknown error occurred when trying to read %s. Does it exist, or maybe there's an issue with permissions?", path)
 				failed++
 				continue
 			}
@@ -127,7 +127,7 @@ func convertPaths(paths []string) {
 			}
 
 			if err != nil {
-				fmt.Fprintf(os.Stderr, errorStr+"An error occured during the conversion of the file %s: %s", path, err.Error())
+				fmt.Fprintf(os.Stderr, errorStr+"An error occurred during the conversion of the file %s: %s", path, err.Error())
 				failed++
 				continue
 			}
