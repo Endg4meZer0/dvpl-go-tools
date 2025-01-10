@@ -55,7 +55,7 @@ func main() {
 		if !strings.HasPrefix(v, "-") {
 			path, err := filepath.Abs(v)
 			if err != nil {
-				fmt.Fprintf(os.Stderr, errorStr+"An unknown error occurred when trying to read the set path (%s). Skipping...", v)
+				fmt.Fprintf(os.Stderr, errorStr+"An unknown error occurred while trying to read the set path (%s). Skipping...\n", v)
 				continue
 			}
 			paths = append(paths, path)
@@ -79,7 +79,7 @@ func convertPaths(paths []string) {
 		fileInfo, err := os.Stat(path)
 
 		if err != nil {
-			fmt.Fprintf(os.Stderr, errorStr+"An unknown error occurred when trying to read %s. Does it exist, or maybe there's an issue with permissions?", path)
+			fmt.Fprintf(os.Stderr, errorStr+"An unknown error occurred while trying to read %s. Does it exist, or maybe there's an issue with permissions?\n", path)
 			total++
 			failed++
 			continue
@@ -87,14 +87,14 @@ func convertPaths(paths []string) {
 
 		if fileInfo.IsDir() && !*recursive {
 			failed++
-			fmt.Fprintf(os.Stderr, warningStr+"Ignoring %s since it's a directory and the recursion is disabled...", path)
+			fmt.Fprintf(os.Stderr, warningStr+"Ignoring %s since it's a directory and the recursion is disabled...\n", path)
 			continue
 		} else if fileInfo.IsDir() {
 			dir, err := os.ReadDir(path)
 			if err != nil {
 				total++
 				failed++
-				fmt.Fprintf(os.Stderr, errorStr+"An unknown error occurred when trying to read %s as a directory. Does it exist, or maybe there's an issue with permissions?", path)
+				fmt.Fprintf(os.Stderr, errorStr+"An unknown error occurred while trying to read %s as a directory. Does it exist, or maybe there's an issue with permissions?\n", path)
 				continue
 			}
 			dirPaths := make([]string, 0, len(dir))
@@ -106,7 +106,7 @@ func convertPaths(paths []string) {
 			total++
 			file, err := os.ReadFile(path)
 			if err != nil {
-				fmt.Fprintf(os.Stderr, errorStr+"An unknown error occurred when trying to read %s. Does it exist, or maybe there's an issue with permissions?", path)
+				fmt.Fprintf(os.Stderr, errorStr+"An unknown error occurred while trying to read %s. Does it exist, or maybe there's an issue with permissions?\n", path)
 				failed++
 				continue
 			}
@@ -127,18 +127,18 @@ func convertPaths(paths []string) {
 			}
 
 			if err != nil {
-				fmt.Fprintf(os.Stderr, errorStr+"An error occurred during the conversion of the file %s: %s", path, err.Error())
+				fmt.Fprintf(os.Stderr, errorStr+"An error occurred during the conversion of the file %s: %s\n", path, err.Error())
 				failed++
 				continue
 			}
 			os.WriteFile(newPath, convertedFile, 0777)
 			completed++
-			fmt.Fprintf(os.Stdout, successStr+"Successfully converted %s", path)
+			fmt.Fprintf(os.Stdout, successStr+"Successfully converted %s\n", path)
 
 			if *deleteOld {
 				err := os.Remove(path)
 				if err != nil {
-					fmt.Fprintf(os.Stderr, warningStr+"The deletion flag is set, but I could not delete %s after the conversion!", path)
+					fmt.Fprintf(os.Stderr, warningStr+"The deletion flag is set, but I could not delete %s after the conversion!\n", path)
 				}
 			}
 		}
